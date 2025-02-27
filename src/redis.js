@@ -2,7 +2,7 @@ const redis = require('redis');
 
 
 const client = redis.createClient({
-  url: 'redis://redis:6379' // Use 'redis-container' instead of 'redis'
+  url: 'redis://redis:6379'
 }, {
     retry_strategy: function (options) {
       if (options.error && options.error.code === 'ECONNREFUSED') {

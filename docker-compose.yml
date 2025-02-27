@@ -16,5 +16,8 @@ services:
    environment:
      - REDIS_HOST=redis
      - REDIS_PORT=6379
+     - NEW_RELIC_APP_NAME=my-node-app
+     - NEW_RELIC_LICENSE_KEY=4dd64769450b22a52544c036e908b6dfFFFFNRAL
+     - NEW_RELIC_LOG_LEVEL=info
    ports:
      - "3006:3008"    

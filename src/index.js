@@ -1,12 +1,23 @@
+require('newrelic');
 const express = require('express');
 const http = require('http');
 const { client } = require('./redis');
-const { getActorsByTitle } = require('./service/database.service')
-const { getClient } = require('./pg')
+const { getActorsByTitle } = require('../src/service/database.service')
+const { getClient } = require('../src/pg')
 var bodyParser = require('body-parser')
 // const { Server } = require('socket');
 
 const app = express();
+
+require('dotenv').config();
+
+const logger = (req,res,next) => {
+    console.log(`${req.url} a ${req.method} is called`);
+    console.info(`${req.url} a ${req.method} is called`);
+    next();
+}
+
+app.use(logger);
 
 app.use(bodyParser.json());
 
@@ -42,11 +53,13 @@ app.get('/getActorsByTitle', async (req,res) => {
 newServer.listen(PORT, '0.0.0.0', async(error)=> {
     if(error){
         console.log('Failed to start server');
+        console.info('Failed to start server');
     }
    else{
        await client.connect();
     //    await getClient();
        console.log(`Server running on port ${PORT}`);
+       console.info(`Server running on port ${PORT}`);
    }
 });
 
