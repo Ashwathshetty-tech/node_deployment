@@ -31,7 +31,7 @@ pipeline {
 
     post {
         always {
-            sh 'docker-compose down'
+            sh '/usr/local/bin/docker-compose down'
         }
     }
 }
